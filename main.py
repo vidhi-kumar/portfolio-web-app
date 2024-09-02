@@ -10,6 +10,12 @@ import time
 
 st.set_page_config(layout="wide")
 
+# st.markdown("<style>.element-container{opacity:1 !important}</style>", unsafe_allow_html=True)
+
+
+@st.cache_data
+def load_image(image_path):
+    return Image.open(image_path)
 
 def load_lottie_url(url: str) -> json:
     r = requests.get(url)
@@ -17,19 +23,25 @@ def load_lottie_url(url: str) -> json:
         return None
     return r.json()
 
-def round_corners(image, radius):
+
+def round_corners(image, radius, background_color=(255, 255, 255)):
+    # Create a white background
+    background = Image.new('RGB', image.size, background_color)
+    
+    # Create a mask for rounded corners
     mask = Image.new('L', image.size, 0)
     draw = ImageDraw.Draw(mask)
     draw.rounded_rectangle([(0, 0), image.size], radius=radius, fill=255)
-    result = ImageOps.fit(image, mask.size, centering=(0.5, 0.5))
-    result.putalpha(mask)
-    return result
+
+    # Apply the mask to the image with the white background
+    rounded_img = Image.composite(image, background, mask)
+    return rounded_img
+
 
 img = Image.open("portfolio-pic.jpeg")
-# img = Image.open("portfolio-pic-2.jpeg")
-# img = Image.open("pic4.png")
-radius = 2000  # You can adjust the radius as needed
+radius = 2000  # a large value will make the image round
 rounded_img = round_corners(img, radius)
+
 
 
 page = st_navbar(["Home", "Work Experience", "Projects", "Proficiencies", "Contact me"])
@@ -65,7 +77,9 @@ if page == "Home":
             bringing together data engineering and analysis to create practical, data-driven solutions.
             """, unsafe_allow_html=True)
         with col3:
-            st.image(rounded_img, output_format="PNG", use_column_width="auto")
+            # with st.spinner("..."):
+                # st.image(rounded_img, output_format="PNG", use_column_width="auto")
+            st.image(rounded_img, output_format="JPEG", use_column_width="auto")
 
 
 if page == "Work Experience":
