@@ -7,6 +7,7 @@ from streamlit_lottie import st_lottie
 import requests
 import json
 import time
+import base64
 
 st.set_page_config(layout="wide")
 
@@ -23,6 +24,12 @@ def load_lottie_url(url: str) -> json:
         return None
     return r.json()
 
+# Function to convert image to base64
+def get_image_as_base64(image_path):
+    with open(image_path, "rb") as file:
+        image_data = file.read()
+    return base64.b64encode(image_data).decode()
+
 
 def round_corners(image, radius, background_color=(255, 255, 255)):
     # Create a white background
@@ -37,7 +44,7 @@ def round_corners(image, radius, background_color=(255, 255, 255)):
     rounded_img = Image.composite(image, background, mask)
     return rounded_img
 
-
+# avoid using png pics because they are slower to render (due to its compression)
 img = Image.open("portfolio-pic.jpeg")
 radius = 2000  # a large value will make the image round
 rounded_img = round_corners(img, radius)
@@ -150,6 +157,64 @@ if page == "Work Experience":
         with col3:
             st.image('psl-logo.png', output_format="PNG")
 
+if page == 'Projects':
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.subheader("Olympic Data Analysis")
+            olympic_img_path = "olympic-pic.jpeg"  # Local path in your project folder
+            link_url = "https://github.com/vidhi-kumar/olympic-insights/blob/main/olympics-analysis.ipynb"
+            # st.image(olympic_img_path, caption="Olympic Data Analysis", width=200)
+            # st.markdown(f'[Link to project]( {link_url} )', unsafe_allow_html=True)
+            olympic_img_base64 = get_image_as_base64(olympic_img_path)
+            # st.markdown(f"""
+            # <a href="{link_url}" target="_blank">
+            #     <img src="data:image/jpeg;base64,{olympic_img_base64}" alt="Olympic Data Analysis" width="250">
+            # </a>
+            # """, unsafe_allow_html=True)
+            st.markdown(f"""
+                <style>
+                .image-container {{
+                    display: inline-block;
+                    position: relative;
+                }}
+                
+                .image-container img {{
+                    transition: transform 0.3s ease;
+                    border-radius: 8px;
+                }}
+
+                .image-container img:hover {{
+                    transform: scale(1.1);
+                }}
+
+                .image-container a {{
+                    text-decoration: none;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    color: white;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                }}
+
+                .image-container:hover a {{
+                    opacity: 1;
+                }}
+                </style>
+
+                <div class="image-container">
+                    <img src="data:image/jpeg;base64,{olympic_img_base64}" alt="Olympic Data Analysis" width="300">
+                    <a href="{link_url}" target="_blank">View Project</a>
+                </div>
+            """, unsafe_allow_html=True)
+            st.write("Analyzed and visualized Olympic data (1896-2024), revealing key trends and actionable insights.")
+    pass
 
 if page == "Proficiencies":
     with st.container():
