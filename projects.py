@@ -78,8 +78,11 @@ def display_projects():
                 """, unsafe_allow_html=True)
 
                 st.write("<br>", unsafe_allow_html=True)
-                st.write("Explored Olympic data (1896-2024), revealing global trends and actionable insights.")
-                st.write("Utilized <b>python, pandas and matplotlib</b> for data analysis and visualization", unsafe_allow_html=True)
+                st.markdown("Explored Olympic data (1896-2024), **revealing global trends and actionable insights.**", unsafe_allow_html=True)
+                st.markdown("""
+                Utilized <span class="highlight">**python, pandas**</span> and <span class="highlight">**matplotlib**</span>
+                for data analysis and visualization.
+                """, unsafe_allow_html=True)
         
             with col2:
                 st.markdown(
@@ -147,7 +150,9 @@ def display_projects():
                     </div>
                 """, unsafe_allow_html=True)
                 st.write("<br>", unsafe_allow_html=True)
-                st.write("Containerized API testing environment built with <b>FastAPI and JWT authentication.</b> \
-                        ", unsafe_allow_html=True)
-                st.write("Isolated dashboard to experiment with APIs, using <b>SQLite and Docker</b> for easy \
-                        local testing and built-in <b>Swagger</b> documentation.", unsafe_allow_html=True)
+                st.markdown("""Containerized API testing environment built with <span class="highlight">**FastAPI**</span> and 
+                            <span class="highlight">**JWT**</span> authentication.
+                            """, unsafe_allow_html=True)
+                st.markdown("""Isolated dashboard to experiment with APIs, using <span class="highlight">**SQLite**</span> and <span class="highlight">**Docker**</span> for easy 
+                        local testing and built-in <span class="highlight">**Swagger**</span> documentation.""", unsafe_allow_html=True)
+                

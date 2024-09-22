@@ -8,7 +8,10 @@ def display_work_experience():
 
         with col1:
             st.subheader("Persistent Systems Limited")
-            st.write("**SENIOR SOFTWARE ENGINEER**")
+            # st.write("**SENIOR SOFTWARE ENGINEER**")
+            st.markdown("""
+            <span class="highlight">**SENIOR SOFTWARE ENGINEER**</span>
+                """, unsafe_allow_html=True)
             st.write(
                 """
                 **Automated ETL Process:**
@@ -17,7 +20,9 @@ def display_work_experience():
                 - Implemented efficient data normalization using PySpark, business logic for rule changes, cost center allocation, and metadata management.
                 - Performed data loading using SQL Loader.
                 - Managed a web portal delivering live summarized graphs and reports to clients.""")
-            st.write("**SOFTWARE ENGINEER**")
+            st.markdown("""
+            <span class="highlight">**SOFTWARE ENGINEER**</span>
+                """, unsafe_allow_html=True)
             st.write("""
                 **Tangoe Usage Management Project:**
                 - Part of the Tangoe Usage Management project, which processes call records and generates invoices for over 25 clients.
@@ -44,7 +49,9 @@ def display_work_experience():
         col1, col2, col3= st.columns([5, 3, 2])
         with col1:
             st.subheader("Spintly")
-            st.write("**BACKEND DEVELOPER INTERN**")
+            st.markdown("""
+            <span class="highlight">**BACKEND DEVELOPER INTERN**</span>
+                """, unsafe_allow_html=True)
             st.write("""
             - Created software to replicate client experience at Spintly using API calls to Spintly Backend.
             - Extensively worked on Node.js/Express with PostgreSQL and AWS Lambda for REST API development.
@@ -59,7 +66,9 @@ def display_work_experience():
         col1, col2, col3= st.columns([5, 3, 2])
         with col1:
             st.subheader("Persistent Systems Limited")
-            st.write("**MENTORSHIP PROGRAM**")
+            st.markdown("""
+            <span class="highlight">**MENTORSHIP PROGRAM**</span>
+                """, unsafe_allow_html=True)
             st.write("""
             - Contributed to creating privacy-preserving machine learning models using federated learning for skin cancer detection.
             """)
