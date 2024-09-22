@@ -162,7 +162,7 @@ if page == 'Projects':
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.subheader("Olympic Data Analysis")
+            st.subheader("Learning the World with Olympic Data")
             olympic_img_path = "olympic-pic.jpeg"  # Local path in your project folder
             link_url = "https://github.com/vidhi-kumar/olympic-insights/blob/main/olympics-analysis.ipynb"
             # st.image(olympic_img_path, caption="Olympic Data Analysis", width=200)
@@ -173,47 +173,51 @@ if page == 'Projects':
             #     <img src="data:image/jpeg;base64,{olympic_img_base64}" alt="Olympic Data Analysis" width="250">
             # </a>
             # """, unsafe_allow_html=True)
-            st.markdown(f"""
-                <style>
-                .image-container {{
-                    display: inline-block;
-                    position: relative;
-                }}
-                
-                .image-container img {{
-                    transition: transform 0.3s ease;
-                    border-radius: 8px;
-                }}
+    st.markdown(f"""
+            <style>
+            .image-container {{
+                display: inline-block;
+                position: relative;
+            }}
 
-                .image-container img:hover {{
-                    transform: scale(1.1);
-                }}
+            .image-container img {{
+                transition: transform 0.3s ease;
+                border-radius: 8px;
+            }}
 
-                .image-container a {{
-                    text-decoration: none;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                    color: white;
-                    background-color: rgba(0, 0, 0, 0.7);
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                }}
+            .image-container img:hover {{
+                transform: scale(1.1);
+            }}
 
-                .image-container:hover a {{
-                    opacity: 1;
-                }}
-                </style>
+            .image-container .click-indicator {{
+                position: absolute;
+                top: 80%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 5px 10px;
+                border-radius: 5px;
+                font-size: 14px;
+                text-align: center;
+                opacity: 1;
+                transition: opacity 0.3s ease;
+            }}
 
-                <div class="image-container">
+            .image-container:hover .click-indicator {{
+                opacity: 0;
+            }}
+            </style>
+
+            <div class="image-container">
+                <a href="{link_url}" target="_blank">
                     <img src="data:image/jpeg;base64,{olympic_img_base64}" alt="Olympic Data Analysis" width="300">
-                    <a href="{link_url}" target="_blank">View Project</a>
-                </div>
-            """, unsafe_allow_html=True)
-            st.write("Analyzed and visualized Olympic data (1896-2024), revealing key trends and actionable insights.")
+                </a>
+                <div class="click-indicator">Click to view project</div>
+            </div>
+        """, unsafe_allow_html=True)
+    st.write("Explored Olympic data (1896-2024), revealing global trends and actionable insights.")
+    st.write("Utilized python, pandas and matplotlib for data analysis and visualization")
     pass
 
 if page == "Proficiencies":
