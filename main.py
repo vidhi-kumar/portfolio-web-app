@@ -3,7 +3,7 @@ from streamlit_option_menu import option_menu
 from streamlit_navigation_bar import st_navbar
 from PIL import Image, ImageOps
 from PIL import ImageDraw
-from streamlit_lottie import st_lottie
+# from streamlit_lottie import st_lottie
 import requests
 import json
 import time
@@ -58,7 +58,7 @@ rounded_img = round_corners(img, radius)
 
 page = st_navbar(["Home", "Work Experience", "Projects", "Proficiencies", "Contact me"])
 
-lottie_coder = load_lottie_url("https://lottie.host/12b4aa73-2751-432e-aceb-a4de8134d10f/mORuoSlkIW.json")
+# lottie_coder = load_lottie_url("https://lottie.host/12b4aa73-2751-432e-aceb-a4de8134d10f/mORuoSlkIW.json")
 
 if page == "Home":
     display_home(rounded_img=rounded_img)
