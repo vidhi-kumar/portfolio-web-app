@@ -48,6 +48,7 @@ def round_corners(image, radius, background_color=(255, 255, 255)):
     rounded_img = Image.composite(image, background, mask)
     return rounded_img
 
+
 # avoid using png pics because they are slower to render (due to its compression)
 img = Image.open("portfolio-pic.jpeg")
 radius = 2000  # a large value will make the image round
@@ -70,3 +71,35 @@ if page == 'Projects':
         
 if page == "Proficiencies":
     display_proficiencies()
+
+# Additional styling for the entire page
+st.markdown("""
+    <style>
+    .stImage {
+        animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+    .title {
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+        color: #1f2937;
+    }
+    .description {
+        font-size: 18px;
+        color: #4b5563;
+        text-align: center;
+    }
+    .highlight {
+        color: #6366f1;
+    }
+    </style>
+""", unsafe_allow_html=True)
