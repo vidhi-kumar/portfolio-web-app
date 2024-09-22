@@ -15,7 +15,7 @@ def display_projects():
                 st.markdown(
                     """
                     <div style="text-align: center;">
-                        <h3>Learning the World with Olympic Data</h3>
+                        <h3>Global trends with Olympic Data</h3>
                     </div>
                     """,
                     unsafe_allow_html=True
