@@ -76,7 +76,7 @@ if page == "Proficiencies":
 st.markdown("""
     <style>
     .stImage {
-        animation: fadeIn 2s ease-in-out;
+        animation: fadeIn 1s ease-in-out;
     }
     @keyframes fadeIn {
         0% { opacity: 0; }
@@ -103,3 +103,4 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
