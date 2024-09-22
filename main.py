@@ -101,17 +101,6 @@ st.markdown("""
     .highlight {
         color: #6366f1;
     }
-    /* Force light mode */
-    html, body, [data-testid="stAppViewContainer"] {
-        background-color: white !important;
-        color: black !important;
-    }
-
-    /* Customize button, headers, other components for light mode*/
-    .stButton button {
-        background-color: #4CAF50;
-        color: white;
-    }
     </style>
 """, unsafe_allow_html=True)
 
