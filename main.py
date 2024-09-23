@@ -1,39 +1,11 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from streamlit_navigation_bar import st_navbar
-from PIL import Image, ImageOps
-from PIL import ImageDraw
-# from streamlit_lottie import st_lottie
-import requests
-import json
-import time
-import base64
+from PIL import Image, ImageDraw
 
 from home import display_home 
-
 from projects import display_projects
-
 from proficiencies import display_proficiencies
-
 from work_experience import display_work_experience
-
-st.set_page_config(layout="wide")
-
-# st.markdown("<style>.element-container{opacity:1 !important}</style>", unsafe_allow_html=True)
-
-
-@st.cache_data
-def load_image(image_path):
-    return Image.open(image_path)
-
-def load_lottie_url(url: str) -> json:
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-
-
 
 def round_corners(image, radius, background_color=(255, 255, 255)):
     # Create a white background
@@ -48,18 +20,42 @@ def round_corners(image, radius, background_color=(255, 255, 255)):
     rounded_img = Image.composite(image, background, mask)
     return rounded_img
 
-
-# avoid using png pics because they are slower to render (due to its compression)
+# Load and process the image (avoid using PNG for faster rendering)
 img = Image.open("portfolio-pic.jpeg")
-radius = 2000  # a large value will make the image round
+radius = 2000  # large value to make the image round
 rounded_img = round_corners(img, radius)
 
+# Sidebar with option_menu for navigation
+with st.sidebar:
+    page = option_menu(
+        menu_title="Main Menu",  # required
+        options=["Home", "Work Experience", "Projects", "Proficiencies"],  # options for the nav
+        icons=["house", "briefcase", "list-task", "tools"],  # optional icons from Bootstrap
+        menu_icon="cast",  # optional icon for the menu
+        default_index=0,  # default selected menu item
+    )
 
+# Inject JavaScript to collapse the sidebar on every menu selection (for mobile and desktop)
+st.markdown("""
+    <script>
+    // Function to collapse the sidebar after menu selection
+    function collapseSidebar() {
+        var sidebar = parent.document.querySelector('[data-testid="stSidebar"]');
+        var closeButton = parent.document.querySelector('button[aria-label="Close"]');
+        if (sidebar && closeButton && sidebar.style.width !== '0px') {
+            closeButton.click();  // Simulate the close button click
+        }
+    }
 
-page = st_navbar(["Home", "Work Experience", "Projects", "Proficiencies", "Contact me"])
+    // Attach the function to the menu item click event
+    var menuItems = parent.document.querySelectorAll(".css-1v3fvcr a");
+    menuItems.forEach(function(menuItem) {
+        menuItem.addEventListener('click', collapseSidebar);  // Collapse sidebar on every click
+    });
+    </script>
+""", unsafe_allow_html=True)
 
-# lottie_coder = load_lottie_url("https://lottie.host/12b4aa73-2751-432e-aceb-a4de8134d10f/mORuoSlkIW.json")
-
+# Handle navigation
 if page == "Home":
     display_home(rounded_img=rounded_img)
 
@@ -72,7 +68,7 @@ if page == 'Projects':
 if page == "Proficiencies":
     display_proficiencies()
 
-# Additional styling for the entire page
+# Additional styling for image and titles
 st.markdown("""
     <style>
     .stImage {
@@ -82,11 +78,6 @@ st.markdown("""
         0% { opacity: 0; }
         100% { opacity: 1; }
     }
-    </style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-    <style>
     .title {
         font-size: 36px;
         font-weight: bold;
@@ -103,4 +94,3 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
