@@ -7,6 +7,14 @@ from projects import display_projects
 from proficiencies import display_proficiencies
 from work_experience import display_work_experience
 
+# Page configuration
+st.set_page_config(
+    page_title="My Portfolio",
+    page_icon="👨‍💻",
+    initial_sidebar_state="collapsed"  # Sidebar initially collapsed
+)
+
+# Round corners function
 def round_corners(image, radius, background_color=(255, 255, 255)):
     # Create a white background
     background = Image.new('RGB', image.size, background_color)
@@ -20,55 +28,84 @@ def round_corners(image, radius, background_color=(255, 255, 255)):
     rounded_img = Image.composite(image, background, mask)
     return rounded_img
 
-# Load and process the image (avoid using PNG for faster rendering)
+# Load and round profile image
 img = Image.open("portfolio-pic.jpeg")
-radius = 2000  # large value to make the image round
+radius = 2000  # Large radius for rounded corners
 rounded_img = round_corners(img, radius)
 
-# Sidebar with option_menu for navigation
-with st.sidebar:
-    page = option_menu(
-        menu_title="Main Menu",  # required
-        options=["Home", "Work Experience", "Projects", "Proficiencies"],  # options for the nav
-        icons=["house", "briefcase", "list-task", "tools"],  # optional icons from Bootstrap
-        menu_icon="cast",  # optional icon for the menu
-        default_index=0,  # default selected menu item
-    )
-
-# Inject JavaScript to collapse the sidebar on every menu selection (for mobile and desktop)
-st.markdown("""
-    <script>
-    // Function to collapse the sidebar after menu selection
-    function collapseSidebar() {
-        var sidebar = parent.document.querySelector('[data-testid="stSidebar"]');
-        var closeButton = parent.document.querySelector('button[aria-label="Close"]');
-        if (sidebar && closeButton && sidebar.style.width !== '0px') {
-            closeButton.click();  // Simulate the close button click
+# Navbar Styling
+navbar_styles = """
+    <style>
+    .navbar {
+        background-color: #1f2937;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-family: 'Arial', sans-serif;
+        font-size: 18px;
+    }
+    .navbar a {
+        color: white;
+        padding: 14px 20px;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 4px;
+    }
+    .navbar a:hover {
+        background-color: #4b5563;
+        transition: background-color 0.3s ease;
+    }
+    .navbar .active {
+        background-color: #6366f1;
+        color: white;
+    }
+    @media (max-width: 800px) {
+        .navbar {
+            flex-direction: column;
+        }
+        .navbar a {
+            display: block;
+            width: 100%;
         }
     }
+    </style>
+"""
 
-    // Attach the function to the menu item click event
-    var menuItems = parent.document.querySelectorAll(".css-1v3fvcr a");
-    menuItems.forEach(function(menuItem) {
-        menuItem.addEventListener('click', collapseSidebar);  // Collapse sidebar on every click
-    });
-    </script>
-""", unsafe_allow_html=True)
+# Display Navbar
+st.markdown(navbar_styles, unsafe_allow_html=True)
 
-# Handle navigation
+# Sidebar option menu
+with st.sidebar:
+    page = option_menu(
+        menu_title="",  
+        options=["Home", "Experience", "Projects", "Proficiencies"],  
+        icons=["house", "briefcase", "list-task", "tools"],  
+        default_index=0 if 'selected_page' not in st.session_state else st.session_state.selected_page,  
+        styles={
+            "container": {"padding": "5px", "background-color": "#1f2937"},
+            "icon": {"color": "white", "font-size": "20px"},  
+            "nav-link": {"font-size": "18px", "color": "white", "text-align": "left", "margin": "5px", "border-radius": "5px"},
+            "nav-link-selected": {"background-color": "#6366f1"},  
+        }
+    )
+
+# Check if a new page was selected and trigger rerun to collapse sidebar
+if 'selected_page' not in st.session_state or st.session_state.selected_page != ["Home", "Experience", "Projects", "Proficiencies"].index(page):
+    st.session_state.selected_page = ["Home", "Experience", "Projects", "Proficiencies"].index(page)
+    st.rerun()
+
+# Load the content of the selected page
 if page == "Home":
     display_home(rounded_img=rounded_img)
-
-if page == "Work Experience":
+elif page == "Experience":
     display_work_experience()
-
-if page == 'Projects':
+elif page == 'Projects':
     display_projects()
-        
-if page == "Proficiencies":
+elif page == "Proficiencies":
     display_proficiencies()
 
-# Additional styling for image and titles
+# Additional styling
 st.markdown("""
     <style>
     .stImage {
@@ -78,6 +115,11 @@ st.markdown("""
         0% { opacity: 0; }
         100% { opacity: 1; }
     }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
     .title {
         font-size: 36px;
         font-weight: bold;
