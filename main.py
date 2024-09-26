@@ -83,9 +83,9 @@ with st.sidebar:
         icons=["house", "briefcase", "list-task", "tools"],  
         default_index=0 if 'selected_page' not in st.session_state else st.session_state.selected_page,  
         styles={
-            "container": {"padding": "5px", "background-color": "#1f2937"},
-            "icon": {"color": "white", "font-size": "20px"},  
-            "nav-link": {"font-size": "18px", "color": "white", "text-align": "left", "margin": "5px", "border-radius": "5px"},
+        #     "container": {"padding": "5px", "background-color": "#1f2937"},
+        #     "icon": {"color": "white", "font-size": "20px"},  
+        #     "nav-link": {"font-size": "18px", "color": "white", "text-align": "left", "margin": "5px", "border-radius": "5px"},
             "nav-link-selected": {"background-color": "#6366f1"},  
         }
     )
@@ -129,7 +129,7 @@ st.markdown("""
     .description {
         font-size: 18px;
         color: #4b5563;
-        text-align: center;
+        # text-align: center;
     }
     .highlight {
         color: #6366f1;
