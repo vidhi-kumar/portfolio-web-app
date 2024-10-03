@@ -14,36 +14,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"  # Sidebar initially collapsed
 )
 
-st.markdown("""
-    <style>
-    /* Hide the sidebar on smaller screens */
-    @media (max-width: 768px) {
-        .css-1d391kg {  /* Streamlit sidebar class */
-            display: none;
-        }
-        .open-sidebar-button {
-            display: block;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: #6366f1;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-    }
-    /* Show sidebar when button is clicked */
-    @media (max-width: 768px) {
-        .css-1d391kg.show-sidebar {
-            display: block;
-        }
-    }
-    </style>
-    <button class="open-sidebar-button" onclick="document.querySelector('.css-1d391kg').classList.toggle('show-sidebar')">☰</button>
-""", unsafe_allow_html=True)
-
 # Round corners function
 def round_corners(image, radius, background_color=(255, 255, 255)):
     # Create a white background
