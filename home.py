@@ -71,12 +71,13 @@ def display_home(rounded_img):
 
 # adding handles
     st.markdown("""
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <div style="text-align: center; margin-top: 20px;">
             <a href="https://www.linkedin.com/in/vidhi-kumar/" style="text-decoration: none; margin: 0 10px;">
-                <span style="font-size: 24px; color: #4b4b4b;">&#xf0e1;</span> <!-- LinkedIn icon -->
+                <i class="fab fa-linkedin" style="font-size: 24px; color: #4b4b4b;"></i>
             </a>
             <a href="https://github.com/vidhi-kumar" style="text-decoration: none; margin: 0 10px;">
-                <span style="font-size: 24px; color: #4b4b4b;">&#xf09b;</span> <!-- GitHub icon -->
+                <i class="fab fa-github" style="font-size: 24px; color: #4b4b4b;"></i>
             </a>
         </div>
     """, unsafe_allow_html=True)
